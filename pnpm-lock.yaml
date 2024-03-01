@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  effect:
+    specifier: ^2.4.1
+    version: 2.4.1
   nuxt:
     specifier: ^3.10.3
     version: 3.10.3(typescript@5.3.3)(vite@5.1.4)(vue-tsc@1.8.27)
@@ -2799,6 +2802,10 @@ packages:
 
   /ee-first@1.1.1:
     resolution: {integrity: sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=}
+    dev: false
+
+  /effect@2.4.1:
+    resolution: {integrity: sha512-YsoMB/EGCohGKFyTPYqaFe2B7UCU2MM303dkoowF8DNOdks/4q/00cyhTbBUmM/0FMDoUPmUi/AJ0Aj3E7vO1A==}
     dev: false
 
   /electron-to-chromium@1.4.689:
