@@ -50,7 +50,7 @@ const sendEvent = async (newBuddyEmail: string) => {
       <p class="mb-1">Buddy Match!</p>
 
       <template v-if="!buddyEmail">
-        <p>{{ newEmployee.Name }} ha completato la survey.</p>
+        <p>"{{ newEmployee.Name }}" ha completato la survey.</p>
         <p>Scegli il buddy perfetto tra i suggerimenti di The Retex Circle.</p>
       </template>
       <div v-else class="flex justify-between items-center">
