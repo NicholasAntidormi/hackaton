@@ -14,8 +14,8 @@ defineEmits<{
 <template>
   <div class="py-4 px-6 flex justify-between items-center">
     <div class="flex gap-x-6">
-      <div class="w-12">
-        <img src="/marialuisa.png" />
+      <div class="w-12 h-12 rounded-full flex justify-center items-center text-[white] bg-[#68C3CD]">
+        {{ buddy.Name.split(' ').map(text => text[0]).join('').toUpperCase() }}
       </div>
       <div>
         <p>{{ buddy.Name }}</p>
