@@ -26,10 +26,25 @@ defineEmits<{
 
     <div class="flex items-center gap-x-10">
       <div class="flex gap-x-2">
+        <span class="px-2 py-1 rounded-[4px] bg-[#E9E9E9]">
+          #{{ buddy.Bu  }}
+        </span>
+        <span
+          v-for="oldCompany in ([] as string[]).concat(buddy['Old Company'])"
+          :class="{
+            'hidden':
+              !([] as string[])
+                .concat(newEmployee['Old Company'])
+                .some(newEmployessCompany => newEmployessCompany === oldCompany)
+          }"
+          class="px-2 py-1 rounded-[4px] bg-[#E9E9E9]"
+        >
+          #{{ oldCompany }}
+        </span>
         <span
           v-for="interest in ([] as string[]).concat(buddy.Interest)"
           :class="{
-            'opacity-50':
+            'hidden':
               !([] as string[])
                 .concat(newEmployee.Interest)
                 .some(newEmployessInterest => newEmployessInterest === interest)
@@ -37,6 +52,18 @@ defineEmits<{
           class="px-2 py-1 rounded-[4px] bg-[#E9E9E9]"
         >
           {{ interest }}
+        </span>
+        <span
+          v-for="country in ([] as string[]).concat(buddy['Regioni vissute'])"
+          :class="{
+            'hidden':
+              !([] as string[])
+                .concat(newEmployee['Regioni vissute'])
+                .some(newEmployessCountry => newEmployessCountry === country)
+          }"
+          class="px-2 py-1 rounded-[4px] bg-[#E9E9E9]"
+        >
+          #{{ country }}
         </span>
       </div>
 
