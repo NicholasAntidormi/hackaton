@@ -4,7 +4,7 @@ const data = {
     name: 'Marialuisa Pes',
     role: 'HR Business Partner'
   },
-  description: 'Sogna, vivi, ama... 🦋\n Mi piace la musica, l’Africa e la pasta con patate e provola.'
+  description: 'Sognatrice Instancabile, Ballerina di Parole.'
 }
 </script>
 
