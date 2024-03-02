@@ -1,66 +1,38 @@
 <script setup lang="ts">
-import type { Person } from '~/types/Person.ts'
-const { search } = useAlgoliaSearch('People')
+import BuddyMatch from '~/components/BuddyMatch.vue';
+import type { Person } from '~/types/Person'
+import type { Onboard } from '~/types/Onboard'
 
-const getBuddies = async (person: Person) => {
-  const res = await search({
-    query: '',
-    requestOptions: {
-    facetFilters: [
-      // BU diverse
-      [`Bu:-${person.Bu}`],
-      [
-        // Interessi in comune (OTTIMALE: più voci coincidono, maggiore è la priority)
-        ...([] as string[]).concat(person.Interest).map(interest => `Interest:${interest}`),
-        // Stessa Seniority (possibilmente)
-        `Seniority:${person.Seniority}`,
-        // Old Company uguali (in caso di match)
-        ...([] as string[]).concat(person['Old Company']).map(company => `Old Company:${company}`),
-        // Regioni vissute (in caso di match)
-        ...([] as string[]).concat(person['Regioni vissute']).map(region => `Regioni vissute:${region}`),
-      ]
-  ]
+const { search } = useAlgoliaSearch<Person>('People')
+const { data: newEmployees } = await useAsyncData('NewEmployees', () => search({
+  query: '',
+  requestOptions: {
+    facetFilters: [`Type:New-employee`]
   }
+}), {
+  transform: (data) => data.hits
 })
-return res
 
-}
+const { data: onboardedData } = await useFetch('/api/get-onboarding', {
+  transform:
+    (data) => groupByFunc(([...(data as any).results] as Onboard[]),
+      onboard =>
+        onboard.properties.NewEmployeeMail.title[0].text.content
+      )
+})
 
-const newEmployee = {
-  "Title": "New Entry 1",
-  "Name": "New Entry 1",
-  "Created Time": "2024-03-01T20:13:00.000Z",
-  "Last Edited Time": "2024-03-01T21:57:00.000Z",
-  "Url": "https://www.notion.so/New-Entry-1-7a7394022b20457eacdac073987a624f",
-  "Page Id": "7a739402-2b20-457e-acda-c073987a624f",
-  "Object": "page",
-  "ID": "7a739402-2b20-457e-acda-c073987a624f|2024-03-01T21:57:00.000Z",
-  "Type": "New-employee",
-  "Last Edited By Id": "8a8d23f1-9c2b-4deb-a98c-4ea5d7cd964b",
-  "Last Edited By Object": "user",
-  "Parent Type": "database_id",
-  "Archived": false,
-  "Interest": "#Padel",
-  "Old Company": "Accenture",
-  "Regioni vissute": "Lombardia",
-  "Bu": "Atoms",
-  "General Role": "Data Analyst",
-  "Main Office": "Padova",
-  "Email": "new.entry1@retex.com",
-  "Seniority": "Senior",
-  "objectID": "new.entry1@retex.com"
-}
-const buddies = ref()
+const getBuddyEmail = (onboards?: Onboard[]) =>
+  // @ts-ignore
+  onboards?.toSorted((onboard1, onboard2) => onboard2.created_time - onboard1.created_time)?.[0]?.properties?.BuddyEmail?.email
 
-const initBuddies = async () => {
-  buddies.value = await getBuddies(newEmployee)
-}
 </script>
 
 <template>
-  <div>
-    <pre>newEmployee: {{ newEmployee }}</pre>
-    <button @click="initBuddies">initBuddies</button>
-    <pre>buddies: {{ buddies }}</pre>
+  <div class="pl-10 pr-5 flex flex-col gap-y-[10px]">
+    <BuddyMatch
+      v-for="newEmployee of newEmployees"
+      :new-employee="newEmployee"
+      :buddy-email="getBuddyEmail(onboardedData?.[newEmployee.Email]) ?? null"
+    />
   </div>
 </template>

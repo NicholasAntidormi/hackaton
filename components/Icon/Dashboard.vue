@@ -1,0 +1,5 @@
+<template>
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M4.0708 4.07056H9.08691H9.88727H19.9293V9.08698V9.88703V19.9293H9.88727V19.9294H4.0708V4.07056ZM9.08691 19.1294H4.8708V4.87056H9.08691V9.08698V9.88703V19.1294ZM19.1293 9.08698H9.88727V4.87056H19.1293V9.08698ZM9.88727 19.1293H19.1293V9.88703H9.88727V19.1293Z" fill="currentColor"/>
+  </svg>
+</template>

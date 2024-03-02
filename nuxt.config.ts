@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/algolia'],
+  modules: ['@nuxtjs/algolia', '@nuxtjs/tailwindcss'],
   runtimeConfig: {
     notionSecret: process.env.NOTION_SECRET!
   },
@@ -8,5 +8,6 @@ export default defineNuxtConfig({
   typescript: {
     strict: true,
     typeCheck: true
-  }
+  },
+  ssr: false
 })
