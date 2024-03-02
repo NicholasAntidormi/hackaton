@@ -53,11 +53,11 @@ const sendEvent = async (newBuddyEmail: string) => {
         <p>{{ newEmployee.Name }} ha completato la survey.</p>
         <p>Scegli il buddy perfetto tra i suggerimenti di The Retex Circle.</p>
       </template>
-      <template v-else>
-        <p>Il buddy per {{ newEmployee.Name }} è stato scelto.</p>
-        <p>{{ buddyEmail }}</p>
-        <button @click="buddyEmail = null">cambia</button>
-      </template>
+      <div v-else class="flex justify-between items-center">
+        <p>Il buddy <i>{{ buddyEmail }}</i> è stato assegnato a {{ newEmployee.Name }}.</p>
+        <button class="underline" @click="buddyEmail = null">Cambia</button>
+
+      </div>
     </div>
 
     <BuddyMatched v-if="!buddyEmail && buddies" class="border-t last:rounded-b-[20px]" v-for="buddy in buddies" :new-employee="newEmployee" :buddy="buddy" @send-event="sendEvent"/>
