@@ -29,7 +29,7 @@ const { data: buddies } = await useAsyncData(`Buddies_${props.newEmployee['Page 
   ]
   }
 }), {
-  transform: (data) => data.hits
+  transform: (data) => data.hits.slice(0, 3)
 })
 
 const sendEvent = async (newBuddyEmail: string) => {
